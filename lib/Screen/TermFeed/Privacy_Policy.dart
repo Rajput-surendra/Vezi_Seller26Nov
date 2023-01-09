@@ -32,6 +32,8 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
         (getdata) async {
           bool error = getdata["error"];
           String msg = getdata["message"];
+          print(getSettingsApi.toString());
+          print(parameter.toString());
           if (!error) {
             privacyPolicy = getdata["data"]["privacy_policy"][0].toString();
           } else {

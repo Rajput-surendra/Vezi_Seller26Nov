@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:ziberto_vendor/Helper/ApiBaseHelper.dart';
 import 'package:ziberto_vendor/Helper/AppBtn.dart';
 import 'package:ziberto_vendor/Helper/Color.dart';
+import 'package:http/http.dart'as http;
+import 'package:ziberto_vendor/Helper/Constant.dart';
 
 
 import 'package:ziberto_vendor/Helper/Session.dart';
@@ -94,6 +96,7 @@ class StateProfile extends State<Profile> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    getSetting();
 
     mobileC = new TextEditingController();
     nameC = new TextEditingController();
@@ -113,6 +116,7 @@ class StateProfile extends State<Profile> with TickerProviderStateMixin {
     taxnumberC = new TextEditingController();
     getUserDetails();
 
+
     buttonController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
 
@@ -127,6 +131,7 @@ class StateProfile extends State<Profile> with TickerProviderStateMixin {
           0.150,
         ),
       ),
+
     );
   }
 //==============================================================================
@@ -250,6 +255,24 @@ class StateProfile extends State<Profile> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  getSetting() async {
+    print("object==========================");
+    var headers = {
+      'Cookie': 'ci_session=ff758be17b232db5fc74ebb291f425f71ddd87d7'
+    };
+    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/get_settings'));
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+     final Result = await response.stream.bytesToString();
+     print("thia is Responce${Result}");
+    }
+    else {
+    print(response.reasonPhrase);
+    }
+
   }
 
 //==============================================================================
@@ -842,7 +865,7 @@ class StateProfile extends State<Profile> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  getTranslated(context, "Addresh")!,
+                  getTranslated(context, "Address")!,
                   style: Theme.of(this.context).textTheme.caption!.copyWith(
                         color: lightBlack2,
                         fontWeight: FontWeight.normal,

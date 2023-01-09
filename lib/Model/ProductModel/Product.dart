@@ -224,7 +224,7 @@ class ProductModel {
   List<String>? attributes;
   List<Variants>? variants;
   MinMaxPrice? minMaxPrice;
-  Null? deliverableZipcodesIds;
+  var deliverableZipcodesIds;
   bool? isDeliverable;
   bool? isPurchased;
   String? isFavorite;

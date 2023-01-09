@@ -395,7 +395,7 @@ class _MainOrderHistoryState extends State<MainOrderHistory> {
                                                   style: TextStyle(fontWeight: FontWeight.w700),
                                                 ),
                                                 Text(
-                                                  "₹" + model.payable.toString(),
+                                                  "" + model.payable.toString()+ " $CUR_CURRENCY",
                                                   overflow: TextOverflow.ellipsis,
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.w400,

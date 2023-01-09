@@ -5636,7 +5636,7 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
             shortDescription(),
             tagsAdd(),
             taxSelection(),
-            indicatorField(),
+            //indicatorField(),
             totalAllowedQuantity(),
             minimumOrderQuantity(),
             _quantityStepSize(),

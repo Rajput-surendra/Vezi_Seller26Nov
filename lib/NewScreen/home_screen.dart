@@ -685,7 +685,318 @@ class _HomeScreenState extends State<HomeScreen> {
                     firstHeader(),
                     secondHeader(),
                     thirdHeader(),
-                    isSwitched?orderList.length>0?ListView.builder(
+                      isSwitched?orderList.length>0?
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: orderList.length,
+                          itemBuilder: (context,index){
+                            Order_Model? item;
+                            try {
+                              item = orderList.isEmpty ? null : orderList[index];
+                              if (scrollLoadmore &&
+                                  index == (orderList.length - 1) &&
+                                  scrollController!.position.pixels <= 0) {
+                                getOrder();
+                              }
+                            } on Exception catch (_) {}
+                            return InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                    ServiceScreenDetails(id: item!.id.toString(),))
+                                );
+                              },
+                              child: Container(
+                                width: 93.33.w,
+                                margin: EdgeInsets.only(bottom:1.87.h
+                                ),
+                                decoration:
+                                boxDecoration(radius: 32.0, bgColor: AppColor().colorBg1()),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 3.44.w,right: 3.44.w,top: 3.90.h,),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              height: 6.81.h,
+                                              width: 6.81.h,
+                                              child: Image(
+                                                image:AssetImage(cardPerson),
+                                                fit: BoxFit.fill,
+                                              )),
+                                          Container(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Container(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            text(
+                                                              "Order #${item!.id.toString()} |",
+                                                              textColor: Color(0xff191919),
+                                                              fontSize: 13.sp,
+                                                              fontFamily: fontBold,
+                                                            ),
+                                                            item.latitude!=null && item.longitude != null
+                                                                &&  item.latitude!="" && item.longitude != ""
+                                                                ?text(
+                                                              calculateDistance(double.parse(item.latitude.toString()),double.parse(item.longitude.toString()), double.parse(item.sellerLat.toString()),double.parse(item.sellerLng.toString())).toStringAsFixed(1)+"Km",
+                                                              textColor: Color(0xff13CE3F),
+                                                              fontSize: 13.sp,
+                                                              fontFamily: fontBold,
+                                                            ):SizedBox(),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      SizedBox(width:  3.34.w,),
+                                                      Container(
+                                                        child:  text(
+                                                          "${item.orderDate}",
+                                                          textColor: Color(0xff191919),
+                                                          fontSize: 7.sp,
+                                                          fontFamily: fontRegular,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+
+                                                SizedBox(height:  1.54.h,),
+                                                Container(
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      text(
+                                                        "Order Assigned ${getMinute(item.dateTime!)} min ago",
+                                                        textColor: Color(0xff191919),
+                                                        fontSize: 7.sp,
+                                                        fontFamily: fontRegular,
+                                                      ),
+                                                      SizedBox(width:  3.34.w,),
+                                                      text(
+                                                        "Earning Amount :${item.payable.toString()} $CUR_CURRENCY",
+                                                        textColor: Color(0xffBF2330),
+                                                        fontSize: 7.sp,
+                                                        fontFamily: fontBold,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 4.44.w,vertical: 1.50.h),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 2.5.h,
+                                              width: 2.5.h,
+                                              child: Image(
+                                                image:AssetImage(yellowLocation),
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                            SizedBox(width: 1.w,),
+                                            Container(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  text(
+                                                    "Pick up Point",
+                                                    textColor: Color(0xff191919),
+                                                    fontSize: 7.5.sp,
+                                                    fontFamily: fontBold,
+                                                  ),
+                                                  Container(
+                                                    width: 60.w,
+                                                    child: text(
+                                                      address,
+                                                      textColor: Color(0xffAEABAB),
+                                                      fontSize: 9.sp,
+                                                      fontFamily: fontRegular,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 4.44.w,vertical: 1.50.h),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 2.5.h,
+                                              width: 2.5.h,
+                                              child: Image(
+                                                image:AssetImage(redLocation),
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                            SizedBox(width: 1.w,),
+                                            Container(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  text(
+                                                    "Drop Point",
+                                                    textColor: Color(0xff191919),
+                                                    fontSize: 7.5.sp,
+                                                    fontFamily: fontBold,
+                                                  ),
+                                                  Container(
+                                                    width: 60.w,
+                                                    child: text(
+                                                      item.address.toString(),
+                                                      textColor: Color(0xffAEABAB),
+                                                      fontSize: 9.sp,
+                                                      fontFamily: fontRegular,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    item.itemList![0].activeStatus==PLACED?!loading?Container(
+                                      margin: EdgeInsets.symmetric(horizontal: 4.44.w,vertical: 1.5.h),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          InkWell(
+                                            onTap: (){
+                                              updateOrder(
+                                                item,
+                                                CANCLED,
+                                                updateOrderItemApi,
+                                                item!.id,
+                                                true,
+                                                0,
+                                              );
+                                              //acceptStatus(item!.id, "2");
+                                            },
+                                            child: Container(
+                                              width: 32.77.w,
+                                              height: 4.92.h,
+                                              margin: EdgeInsets.only(right: 2.w),
+                                              decoration: boxDecoration(
+                                                radius: 6.0,
+                                                bgColor:AppColor().colorTextThird(),
+                                              ),
+                                              child: Center(
+                                                child: text(
+                                                  "Reject",
+                                                  textColor: AppColor().colorBg1(),
+                                                  fontSize: 10.sp,
+                                                  fontFamily: fontRegular,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: (){
+                                              updateOrder(
+                                                item,
+                                                PROCESSED,
+                                                updateOrderItemApi,
+                                                item!.id,
+                                                true,
+                                                0,
+                                              );
+                                            },
+                                            child: Container(
+                                              width: 32.77.w,
+                                              height: 4.92.h,
+                                              margin: EdgeInsets.only(right: 2.w),
+                                              decoration: boxDecoration(
+                                                radius: 6.0,
+                                                //color:AppColor().colorPrimaryDark(),
+                                                bgColor: Color(0xff13CE3F),
+                                              ),
+                                              child: Center(
+                                                child: text(
+                                                  "Accept",
+                                                  textColor: AppColor().colorBg1(),
+                                                  fontSize: 10.sp,
+                                                  fontFamily: fontRegular,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ):Center(child: CircularProgressIndicator(),):SizedBox()
+
+                                    /*  Container(
+                                margin: EdgeInsets.symmetric(horizontal: 4.44.w,vertical: 1.5.h),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ServiceScreenDetails()));
+                                      },
+                                      child: Container(
+                                        width: 32.77.w,
+                                        height: 4.92.h,
+                                        margin: EdgeInsets.only(right: 2.w),
+                                        decoration: boxDecoration(
+                                          radius: 6.0,
+                                          bgColor:AppColor().colorTextThird(),
+                                        ),
+                                        child: Center(
+                                          child: text(
+                                            "Reject",
+                                            textColor: AppColor().colorBg1(),
+                                            fontSize: 10.sp,
+                                            fontFamily: fontRegular,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 32.77.w,
+                                      height: 4.92.h,
+                                      margin: EdgeInsets.only(right: 2.w),
+                                      decoration: boxDecoration(
+                                        radius: 6.0,
+                                        //color:AppColor().colorPrimaryDark(),
+                                        bgColor: Color(0xff13CE3F),
+                                      ),
+                                      child: Center(
+                                        child: text(
+                                          "Accept",
+                                          textColor: AppColor().colorBg1(),
+                                          fontSize: 10.sp,
+                                          fontFamily: fontRegular,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )*/
+                                  ],
+                                ),
+                              ),
+                            );
+                          })
+               /* ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: orderList.length,
@@ -886,7 +1197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           true,
                                           0,
                                         );
-                                        //acceptStatus(item!.id, "2");
+                                       // acceptStatus(item!.id, "2");
                                       },
                                       child: Container(
                                         width: 32.77.w,
@@ -940,7 +1251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ):Center(child: CircularProgressIndicator(),):SizedBox()
 
-                              /*  Container(
+                              *//*  Container(
                                 margin: EdgeInsets.symmetric(horizontal: 4.44.w,vertical: 1.5.h),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -987,14 +1298,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ],
                                 ),
-                              )*/
+                              )*//*
                             ],
                           ),
                         ),
                       );
-                    }):Container(
+                    }) */
+                          :Container(
                       height: 30.h,
-                      child: Center(child: text("No Order Available",fontSize: 14.sp,fontFamily: fontBold,textColor: Colors.black)),) : Container(
+                      child: Center(child: text("No Order Available",fontSize: 14.sp,fontFamily: fontBold,textColor: Colors.black)),):Container(
                       height: 30.h,
                       child: Center(child: text("You are offline",fontSize: 14.sp,fontFamily: fontBold,textColor: Colors.black)),),
                   ],
@@ -1030,6 +1342,8 @@ class _HomeScreenState extends State<HomeScreen> {
         Response response =
         await post(acceptStatusApi, body: parameter, headers: headers)
             .timeout(Duration(seconds: timeOut));
+        print("Acept------${acceptStatusApi.toString()}");
+        print(parameter.toString());
 
         var getdata = json.decode(response.body);
         print(getdata);
@@ -1483,7 +1797,7 @@ class _HomeScreenState extends State<HomeScreen> {
           };
           List<String> ids = [];
           for(int i=0;i<model!.itemList!.length;i++){
-            ids.add(tempList[0].itemList![i].id.toString());
+            ids.add(tempList[i].itemList![0].id.toString());
           }
           if (item) {
             parameter[ORDERITEMID] = ids.join(",");

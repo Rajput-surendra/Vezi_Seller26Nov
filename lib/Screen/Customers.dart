@@ -416,7 +416,7 @@ class _CustomersState extends State<Customers> with TickerProviderStateMixin {
                                     children: <TextSpan>[
                                       TextSpan(
                                         text:
-                                            getTranslated(context, "Addresh")! +
+                                            getTranslated(context, "Address")! +
                                                 ": ",
                                         style: TextStyle(color: grey),
                                       ),
@@ -442,7 +442,7 @@ class _CustomersState extends State<Customers> with TickerProviderStateMixin {
                                     children: <TextSpan>[
                                       TextSpan(
                                         text:
-                                            getTranslated(context, "Addresh")! +
+                                            getTranslated(context, "Address")! +
                                                 " : ",
                                         style: TextStyle(color: grey),
                                       ),

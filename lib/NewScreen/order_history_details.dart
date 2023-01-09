@@ -337,7 +337,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                         )),
                     child: Center(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
@@ -357,50 +357,52 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                                     height: 4.0.h,
                                     width: 8.w,
                                   ))),
-                          Container(
-                            width: 65.w,
-                            child: text(
-                                "Order Details",
-                                textColor: Color(0xffffffff),
-                                fontSize: 14.sp,
-                                fontFamily: fontMedium,
-                                isCentered: true
+                          Expanded(
+                            child: Container(
+                              // width: 6.2.w,
+                              child: text(
+                                  "Order Details",
+                                  textColor: Color(0xffffffff),
+                                  fontSize: 14.sp,
+                                  fontFamily: fontMedium,
+                                  isCentered: true
+                              ),
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(right: 5.91.w),
-                            child: PopupMenuButton(
-                                icon: Icon(Icons.chat,color: Colors.white,),
-                                iconSize:  32,
-                                color: Colors.white,
-                                onSelected: (val){
-                                  if(val =="driver"){
-                                    driverName = model!.drivername.toString();
-                                    driverEmail =model!.driveremail.toString();
-                                    driverFcmID = model!.driverfcm.toString();
-                                    driverFid = model!.driverfuid.toString();
-                                    if(driverFid!=""&&driverFid!=null&&driverFid!="0"){
-                                      callChatDriver();
-                                    }else{
-                                      setSnackbar("Currently Not Available", context);
-                                    }
-                                  }else{
-                                    userName = model!.username.toString();
-                                    userEmail =model!.useremail.toString();
-                                    fcmID = model!.userfcm_id.toString();
-                                    fid = model!.userfuid.toString();
-                                    if(fid!=""&&fid!=null&&fid!="0"){
-                                      callChatUser();
-                                    }else{
-                                      setSnackbar("Currently Not Available", context);
-                                    }
-                                  }
-                                },
-                                itemBuilder: (_) =><PopupMenuItem<String>>[
-                                  PopupMenuItem(child: text("Driver",textColor: Colors.black),value: "driver",),
-                                  PopupMenuItem(child: text("User",textColor: Colors.black),value: "user",),
-                                ]),
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.only(right: 5.91.w),
+                          //   child: PopupMenuButton(
+                          //       icon: Icon(Icons.chat,color: Colors.white,),
+                          //       iconSize:  32,
+                          //       color: Colors.white,
+                          //       onSelected: (val){
+                          //         if(val =="driver"){
+                          //           driverName = model!.drivername.toString();
+                          //           driverEmail =model!.driveremail.toString();
+                          //           driverFcmID = model!.driverfcm.toString();
+                          //           driverFid = model!.driverfuid.toString();
+                          //           if(driverFid!=""&&driverFid!=null&&driverFid!="0"){
+                          //             callChatDriver();
+                          //           }else{
+                          //             setSnackbar("Currently Not Available", context);
+                          //           }
+                          //         }else{
+                          //           userName = model!.username.toString();
+                          //           userEmail =model!.useremail.toString();
+                          //           fcmID = model!.userfcm_id.toString();
+                          //           fid = model!.userfuid.toString();
+                          //           if(fid!=""&&fid!=null&&fid!="0"){
+                          //             callChatUser();
+                          //           }else{
+                          //             setSnackbar("Currently Not Available", context);
+                          //           }
+                          //         }
+                          //       },
+                          //       itemBuilder: (_) =><PopupMenuItem<String>>[
+                          //         PopupMenuItem(child: text("Driver",textColor: Colors.black),value: "driver",),
+                          //         PopupMenuItem(child: text("User",textColor: Colors.black),value: "user",),
+                          //       ]),
+                          // ),
                         ],
                       ),
                     ),
@@ -585,7 +587,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                                 Container(
                                   width: 10.w,
                                   child: text(
-                                    "₹ " +model!.payable.toString(),
+                                    " " +model!.payable.toString()+ ""+"$CUR_CURRENCY",
                                     textColor: Color(0xffAEABAB),
                                     fontSize: 9.sp,
                                     fontFamily: fontRegular,
@@ -774,7 +776,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                                               fontFamily: fontRegular,
                                             ),
                                             text(
-                                              "₹${orderItem.price.toString()}",
+                                              "${orderItem.price.toString()} $CUR_CURRENCY",
                                               textColor: Color(0xff000833),
                                               fontSize: 10.sp,
                                               fontFamily: fontRegular,
@@ -833,7 +835,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                                 fontFamily: fontMedium,
                               ),
                               text(
-                                "₹${model!.delCharge.toString()}",
+                                "${model!.delCharge.toString()} $CUR_CURRENCY",
                                 textColor: Color(0xff000833),
                                 fontSize: 10.sp,
                                 fontFamily: fontRegular,
@@ -855,7 +857,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                                 fontFamily: fontMedium,
                               ),
                               text(
-                                "₹${model!.taxPer.toString()}",
+                                "${model!.taxPer.toString()} $CUR_CURRENCY",
                                 textColor: Color(0xff000833),
                                 fontSize: 10.sp,
                                 fontFamily: fontRegular,
@@ -877,7 +879,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                                 fontFamily: fontMedium,
                               ),
                               text(
-                                "₹${model!.taxAmt.toString()}",
+                                "${model!.taxAmt.toString()} $CUR_CURRENCY",
                                 textColor: Color(0xff000833),
                                 fontSize: 10.sp,
                                 fontFamily: fontRegular,
@@ -899,7 +901,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                                 fontFamily: fontBold,
                               ),
                               text(
-                                "₹${model!.payable.toString()}",
+                                "${model!.payable.toString()} $CUR_CURRENCY",
                                 textColor: Color(0xff000833),
                                 fontSize: 14.sp,
                                 fontFamily: fontBold,

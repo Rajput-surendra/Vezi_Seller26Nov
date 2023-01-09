@@ -96,8 +96,8 @@ class AppColor {
   }
 }
 class MyColor {
-  static const Color primary = Color(0xff0B71C6);
-  static const Color primaryLight = Color(0xff1FABF0);
+  static const Color primary = Color(0xff7DAF45 );
+  static const Color primaryLight = Color(0xff7DAF45);
   static const Color greyText = Color(0xff757575);
   static const Color greyLight = Color(0xffEEF1F9);
 }

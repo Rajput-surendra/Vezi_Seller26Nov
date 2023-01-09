@@ -238,11 +238,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: Stack(
                     alignment: Alignment.topRight,
                     children: [
-                      Image.asset(
-                        filter,
-                        height: 2.26.h,
-                        width: 2.26.h,
-                      ),
+                      // Image.asset(
+                      //   filter,
+                      //   height: 2.26.h,
+                      //   width: 2.26.h,
+                      // ),
                       Container(
                         child: Column(
                           children: [
@@ -266,7 +266,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               height: 1.02.h,
                             ),
                             text(
-                              "₹"+CUR_BALANCE,
+                              ""+CUR_BALANCE + "AED",
                               textColor: Color(0xff000000),
                               fontSize: 14.sp,
                               fontFamily: fontBold,

@@ -233,7 +233,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   tabItem(context, 1, payment, "Earning Management"),
                   tabItem(context, 2, changePass, "Change Password"),
 
-                  tabItem(context, 3, serviceIcon, "Store open and close timing"),
+                 // tabItem(context, 3, serviceIcon, "Store open and close timing"),
                   tabItem(context, 4, support, "Customer Support"),
                   tabItem(context, 7, "images/service_history.png", "Term and Conditions"),
                   SizedBox(
@@ -326,7 +326,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 duration: Duration(milliseconds: 500),
               ));
         }
-        if (pos == 3) {
+     /*   if (pos == 3) {
           Navigator.push(
               context,
               PageTransition(
@@ -334,7 +334,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 type: PageTransitionType.rightToLeft,
                 duration: Duration(milliseconds: 500),
               ));
-        }
+        }*/
         if (pos == 4) {
           Navigator.push(
               context,

@@ -1250,6 +1250,8 @@ class _ServiceScreenDetailsState extends State<ServiceScreenDetails> {
                 (getdata) async {
               bool error = getdata["error"];
               String msg = getdata["message"];
+              print("NewOrder--------${updateOrderItemApi.toString()}");
+              print(parameter.toString());
               setSnackbar(msg,context);
               print("msg : $msg");
               if (!error) {

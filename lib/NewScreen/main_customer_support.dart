@@ -78,7 +78,7 @@ class _MainCustomerSupportState extends State<MainCustomerSupport> {
                               Container(
                                 margin: EdgeInsets.only(top: 7.0),
                                 child: Text(
-                                  "Business@InteMarket.com",
+                                  "Business@Vezi.com",
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       color: AppColor.PrimaryDark),
@@ -105,7 +105,7 @@ class _MainCustomerSupportState extends State<MainCustomerSupport> {
                               Container(
                                 margin: EdgeInsets.only(top: 7.0),
                                 child: Text(
-                                  "Support@InteMarket.com",
+                                  "Support@Vezi.com",
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       color: AppColor.PrimaryDark),
@@ -144,7 +144,7 @@ class _MainCustomerSupportState extends State<MainCustomerSupport> {
                   Container(
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 5,
+                        itemCount: 3,
                         physics: ScrollPhysics(),
                         itemBuilder: (context, int i) {
                           return CustomerSupportFAQ(
