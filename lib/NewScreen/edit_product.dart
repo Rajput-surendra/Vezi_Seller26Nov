@@ -1008,7 +1008,7 @@ class _EditProductState extends State<EditProduct> with TickerProviderStateMixin
           ),
         ),
         onTap: () {
-          indicatorDialog();
+         // indicatorDialog();
         },
       ),
     );
@@ -3458,46 +3458,46 @@ class _EditProductState extends State<EditProduct> with TickerProviderStateMixin
                     getTranslated(context, "General Information")!,
                   ),
                 ),
-                TextButton(
-                  style: curSelPos == 1
-                      ? TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: primary,
-                    onSurface: Colors.grey,
-                  )
-                      : null,
-                  onPressed: () {
-                    setState(
-                          () {
-                        curSelPos = 1;
-                      },
-                    );
-                  },
-                  child: Text(
-                    getTranslated(context, "Attributes")!,
-                  ),
-                ),
-                productType == 'variable_product'
-                    ? TextButton(
-                  style: curSelPos == 2
-                      ? TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: primary,
-                    onSurface: Colors.grey,
-                  )
-                      : null,
-                  onPressed: () {
-                    setState(
-                          () {
-                        curSelPos = 2;
-                      },
-                    );
-                  },
-                  child: Text(
-                    getTranslated(context, "Variations")!,
-                  ),
-                )
-                    : Container(),
+                // TextButton(
+                //   style: curSelPos == 1
+                //       ? TextButton.styleFrom(
+                //     primary: Colors.white,
+                //     backgroundColor: primary,
+                //     onSurface: Colors.grey,
+                //   )
+                //       : null,
+                //   onPressed: () {
+                //     setState(
+                //           () {
+                //         curSelPos = 1;
+                //       },
+                //     );
+                //   },
+                //   child: Text(
+                //     getTranslated(context, "Attributes")!,
+                //   ),
+                // ),
+                // productType == 'variable_product'
+                //     ? TextButton(
+                //   style: curSelPos == 2
+                //       ? TextButton.styleFrom(
+                //     primary: Colors.white,
+                //     backgroundColor: primary,
+                //     onSurface: Colors.grey,
+                //   )
+                //       : null,
+                //   onPressed: () {
+                //     setState(
+                //           () {
+                //         curSelPos = 2;
+                //       },
+                //     );
+                //   },
+                //   child: Text(
+                //     getTranslated(context, "Variations")!,
+                //   ),
+                // )
+                //     : Container(),
               ],
             ),
 
@@ -3509,9 +3509,9 @@ class _EditProductState extends State<EditProduct> with TickerProviderStateMixin
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                      getTranslated(context, "Type Of Product")! + " :"),
+                      getTranslated(context, "Simple Product")! + " :",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                 ),
-                typeSelectionField(),
+                // typeSelectionField(),
 
                 // For Simple Product
 
@@ -5703,7 +5703,7 @@ class _EditProductState extends State<EditProduct> with TickerProviderStateMixin
             shortDescription(),
             tagsAdd(),
             taxSelection(),
-            indicatorField(),
+            //indicatorField(),
             totalAllowedQuantity(),
             minimumOrderQuantity(),
             _quantityStepSize(),

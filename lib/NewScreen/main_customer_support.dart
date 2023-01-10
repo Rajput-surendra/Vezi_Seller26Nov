@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:animated_widgets/animated_widgets.dart';
 
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart'as http;
 import 'package:ziberto_vendor/Helper/Color.dart';
 import 'package:ziberto_vendor/Helper/Constant.dart';
 import 'package:ziberto_vendor/Helper/Session.dart';
 import 'package:ziberto_vendor/Helper/myappbar.dart';
 import 'package:ziberto_vendor/NewScreen/customer_support_faq.dart';
+
+import '../Model/GetSupportModel.dart';
 
 class MainCustomerSupport extends StatefulWidget {
   const MainCustomerSupport({Key? key}) : super(key: key);
@@ -22,8 +27,40 @@ class _MainCustomerSupportState extends State<MainCustomerSupport> {
   @override
   void initState() {
     // TODO: implement initState
+    Future.delayed(
+        Duration(milliseconds: 500),
+          (){
+          return  getSupport();
+          });
+
     super.initState();
   }
+  GetSupportModel? getSup;
+  getSupport() async {
+    var headers = {
+      'Cookie': 'ci_session=721ee33fd6a48f0a056dff316eabad7019f1a440'
+    };
+    var request = http.Request('POST', Uri.parse('$baseUrl/get_support'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var Result = await response.stream.bytesToString();
+      final FinalResult = GetSupportModel.fromJson(jsonDecode(Result));
+      print("New+++++++++++++++++++++++${FinalResult.toString()}");
+      setState(() {
+        getSup = FinalResult;
+      });
+    }
+    else {
+    print(response.reasonPhrase);
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var mysize = MediaQuery.of(context).size;
@@ -77,8 +114,8 @@ class _MainCustomerSupportState extends State<MainCustomerSupport> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 7.0),
-                                child: Text(
-                                  "Business@Vezi.com",
+                                child: getSup!.supports ==null || getSup!.supports == "" ? Text("support@vezi.global"):Text(
+                                  "${getSup!.supports}",
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       color: AppColor.PrimaryDark),
@@ -104,8 +141,8 @@ class _MainCustomerSupportState extends State<MainCustomerSupport> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 7.0),
-                                child: Text(
-                                  "Support@Vezi.com",
+                                child: getSup!.supports ==null || getSup!.supports == "" ? Text("support@vezi.global"):Text(
+                                  "${getSup!.supports}",
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       color: AppColor.PrimaryDark),
@@ -144,118 +181,118 @@ class _MainCustomerSupportState extends State<MainCustomerSupport> {
                   Container(
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 3,
+                        itemCount:getSup!.data!.length,
                         physics: ScrollPhysics(),
                         itemBuilder: (context, int i) {
                           return CustomerSupportFAQ(
-                            title: "How can I update my profile",
+                            title:getSup!.data![i].question == null || getSup!.data![i].question == "" ?" ": "${getSup!.data![i].question}",
                             description:
-                                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit",
+                                "${getSup!.data![i].answer}",
                           );
                         }),
                   ),
-                  Container(
-                      margin: EdgeInsets.only(
-                          left: 4.33.w,right: 4.33.w,bottom:1.87.h
-                      ),
-                      child: text(
-                          "If you Can't find a solution You can Write About Your Problem and Send to us",
-                          textColor: AppColor().colorTextPrimary(),
-                          fontSize: 8.5.sp,
-                          fontFamily: fontMedium,
-                          isCentered: false,
-                          maxLine: 3)),
-                  SizedBox(
-                    height: 0.5.h,
-                  ),
-                  Container(
-                    height: 15.46.h,
-                    margin: EdgeInsets.only(
-                        left: 4.33.w,right: 4.33.w,bottom:1.87.h
-                    ),
-                    child: TextFormField(
-                      cursorColor: Colors.red,
-                      obscureText: false,
-                      keyboardType: TextInputType.text,
-                      minLines: 5,
-                      maxLines: 5,
-                      controller: desController,
-                      style: TextStyle(
-                        color: AppColor().colorTextFour(),
-                        fontSize: 10.sp,
-                      ),
-                      inputFormatters: [],
-                      decoration: InputDecoration(
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: AppColor().colorEdit(),
-                              width: 1.0,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        labelText: 'Describe Your Problem here',
-                        alignLabelWithHint: true,
-                        labelStyle: TextStyle(
-                          color: AppColor().colorTextFour(),
-                          fontSize: 10.sp,
-                        ),
-
-                        helperText: '',
-                        counterText: '',
-                        fillColor: AppColor().colorEdit(),
-                        enabled: true,
-                        filled: true,
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: AppColor().colorEdit(), width: 5.0),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.02.h,
-                  ),
-                  Center(
-                    child: InkWell(
-                      onTap: () async {
-                        setState(() {
-                          enabled = true;
-                        });
-                        await Future.delayed(Duration(milliseconds: 200));
-                        setState(() {
-                          enabled = false;
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: ScaleAnimatedWidget.tween(
-                        enabled: enabled,
-                        duration: Duration(milliseconds: 200),
-                        scaleDisabled: 1.0,
-                        scaleEnabled: 0.9,
-                        child: Container(
-                          width: 69.99.w,
-                          height: 6.46.h,
-                          decoration: boxDecoration(
-                              radius: 15.0,
-                              bgColor: AppColor().colorPrimaryDark()),
-                          child: Center(
-                            child: text(
-                              "Save",
-                              textColor: Color(0xffffffff),
-                              fontSize: 14.sp,
-                              fontFamily: fontRegular,
-                            ),
-                          ),
-
-
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 4.02.h,
-                  ),
+                  // Container(
+                  //     margin: EdgeInsets.only(
+                  //         left: 4.33.w,right: 4.33.w,bottom:1.87.h
+                  //     ),
+                  //     child: text(
+                  //         "If you Can't find a solution You can Write About Your Problem and Send to us",
+                  //         textColor: AppColor().colorTextPrimary(),
+                  //         fontSize: 8.5.sp,
+                  //         fontFamily: fontMedium,
+                  //         isCentered: false,
+                  //         maxLine: 3)),
+                  // SizedBox(
+                  //   height: 0.5.h,
+                  // ),
+                  // Container(
+                  //   height: 15.46.h,
+                  //   margin: EdgeInsets.only(
+                  //       left: 4.33.w,right: 4.33.w,bottom:1.87.h
+                  //   ),
+                  //   child: TextFormField(
+                  //     cursorColor: Colors.red,
+                  //     obscureText: false,
+                  //     keyboardType: TextInputType.text,
+                  //     minLines: 5,
+                  //     maxLines: 5,
+                  //     controller: desController,
+                  //     style: TextStyle(
+                  //       color: AppColor().colorTextFour(),
+                  //       fontSize: 10.sp,
+                  //     ),
+                  //     inputFormatters: [],
+                  //     decoration: InputDecoration(
+                  //       focusedBorder: UnderlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //             color: AppColor().colorEdit(),
+                  //             width: 1.0,
+                  //             style: BorderStyle.solid),
+                  //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  //       ),
+                  //       labelText: 'Describe Your Problem here',
+                  //       alignLabelWithHint: true,
+                  //       labelStyle: TextStyle(
+                  //         color: AppColor().colorTextFour(),
+                  //         fontSize: 10.sp,
+                  //       ),
+                  //
+                  //       helperText: '',
+                  //       counterText: '',
+                  //       fillColor: AppColor().colorEdit(),
+                  //       enabled: true,
+                  //       filled: true,
+                  //       enabledBorder: UnderlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //             color: AppColor().colorEdit(), width: 5.0),
+                  //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 1.02.h,
+                  // ),
+                  // Center(
+                  //   child: InkWell(
+                  //     onTap: () async {
+                  //       setState(() {
+                  //         enabled = true;
+                  //       });
+                  //       await Future.delayed(Duration(milliseconds: 200));
+                  //       setState(() {
+                  //         enabled = false;
+                  //       });
+                  //       Navigator.pop(context);
+                  //     },
+                  //     child: ScaleAnimatedWidget.tween(
+                  //       enabled: enabled,
+                  //       duration: Duration(milliseconds: 200),
+                  //       scaleDisabled: 1.0,
+                  //       scaleEnabled: 0.9,
+                  //       child: Container(
+                  //         width: 69.99.w,
+                  //         height: 6.46.h,
+                  //         decoration: boxDecoration(
+                  //             radius: 15.0,
+                  //             bgColor: AppColor().colorPrimaryDark()),
+                  //         child: Center(
+                  //           child: text(
+                  //             "Save",
+                  //             textColor: Color(0xffffffff),
+                  //             fontSize: 14.sp,
+                  //             fontFamily: fontRegular,
+                  //           ),
+                  //         ),
+                  //
+                  //
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 4.02.h,
+                  // ),
                 ],
               ),
             ),

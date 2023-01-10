@@ -143,7 +143,10 @@ class _CustomersState extends State<Customers> with TickerProviderStateMixin {
                       padding:
                           const EdgeInsetsDirectional.only(top: kToolbarHeight),
                       child: Center(
-                        child: Text(getTranslated(context, "NOCUSTOMERFOUND")!),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Seller does not have permission to view customer details",style: TextStyle(fontWeight: FontWeight.bold),),
+                        ),
                       ),
                     )
                   : NotificationListener<ScrollNotification>(

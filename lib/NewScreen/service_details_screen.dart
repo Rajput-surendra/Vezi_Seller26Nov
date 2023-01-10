@@ -361,50 +361,56 @@ class _ServiceScreenDetailsState extends State<ServiceScreenDetails> {
                                     height: 4.0.h,
                                     width: 8.w,
                                   ))),
-                          Container(
-                            width: 65.w,
-                            child: text(
-                              "Order Details",
-                              textColor: Color(0xffffffff),
-                              fontSize: 14.sp,
-                              fontFamily: fontMedium,
-                              isCentered: true
+                          Padding(
+                            padding: const EdgeInsets.only(right: 30),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: 75.w,
+                                child: text(
+                                  "Order Details",
+                                  textColor: Color(0xffffffff),
+                                  fontSize: 14.sp,
+                                  fontFamily: fontMedium,
+                                  isCentered: true
+                                ),
+                              ),
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(right: 5.91.w),
-                            child: PopupMenuButton(
-                              icon: Icon(Icons.chat,color: Colors.white,),
-                                iconSize:  32,
-                                color: Colors.white,
-                                onSelected: (val){
-                                      if(val =="Driver"){
-                                        driverName = model!.drivername.toString();
-                                        driverEmail =model!.driveremail.toString();
-                                        driverFcmID = model!.driverfcm.toString();
-                                        driverFid = model!.driverfuid.toString();
-                                        if(driverFid!=""&&driverFid!=null&&driverFid!="0"){
-                                          callChatDriver();
-                                        }else{
-                                          setSnackbar("Currently Not Available", context);
-                                        }
-                                      }else{
-                                        userName = model!.username.toString();
-                                        userEmail =model!.useremail.toString();
-                                        fcmID = model!.userfcm_id.toString();
-                                        fid = model!.userfuid.toString();
-                                        if(fid!=""&&fid!=null&&fid!="0"){
-                                          callChatUser();
-                                        }else{
-                                          setSnackbar("Currently Not Available", context);
-                                        }
-                                      }
-                                },
-                                itemBuilder: (_) =><PopupMenuItem<String>>[
-                              PopupMenuItem(child: text("Driver",textColor: Colors.black),value: "driver",),
-                              PopupMenuItem(child: text("User",textColor: Colors.black),value: "user",),
-                            ]),
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.only(right: 5.91.w),
+                          //   child: PopupMenuButton(
+                          //     icon: Icon(Icons.chat,color: Colors.white,),
+                          //       iconSize:  32,
+                          //       color: Colors.white,
+                          //       onSelected: (val){
+                          //             if(val =="Driver"){
+                          //               driverName = model!.drivername.toString();
+                          //               driverEmail =model!.driveremail.toString();
+                          //               driverFcmID = model!.driverfcm.toString();
+                          //               driverFid = model!.driverfuid.toString();
+                          //               if(driverFid!=""&&driverFid!=null&&driverFid!="0"){
+                          //                 callChatDriver();
+                          //               }else{
+                          //                 setSnackbar("Currently Not Available", context);
+                          //               }
+                          //             }else{
+                          //               userName = model!.username.toString();
+                          //               userEmail =model!.useremail.toString();
+                          //               fcmID = model!.userfcm_id.toString();
+                          //               fid = model!.userfuid.toString();
+                          //               if(fid!=""&&fid!=null&&fid!="0"){
+                          //                 callChatUser();
+                          //               }else{
+                          //                 setSnackbar("Currently Not Available", context);
+                          //               }
+                          //             }
+                          //       },
+                          //       itemBuilder: (_) =><PopupMenuItem<String>>[
+                          //     PopupMenuItem(child: text("Driver",textColor: Colors.black),value: "driver",),
+                          //     PopupMenuItem(child: text("User",textColor: Colors.black),value: "user",),
+                          //   ]),
+                          // ),
                         ],
                       ),
                     ),
@@ -456,7 +462,7 @@ class _ServiceScreenDetailsState extends State<ServiceScreenDetails> {
                                 width: 5,
                               ),
                               text(
-                                "₹${model!.payable}",
+                                "${model!.payable} $CUR_CURRENCY ",
                                 textColor: AppColor().colorTextThird(),
                                 fontSize: 10.sp,
                                 fontFamily: fontBold,
@@ -877,7 +883,7 @@ class _ServiceScreenDetailsState extends State<ServiceScreenDetails> {
                                         fontFamily: fontRegular,
                                       ),
                                       text(
-                                        "₹${orderItem.price.toString()}",
+                                        "${orderItem.price.toString()} $CUR_CURRENCY",
                                         textColor: Color(0xff000833),
                                         fontSize: 10.sp,
                                         fontFamily: fontRegular,
